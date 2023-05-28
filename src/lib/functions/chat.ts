@@ -28,6 +28,7 @@ export const ask = async (currentState) => {
   try {
     const updatedState = {
       ...currentState,
+      typing: true,
       messages: [
         ...currentState.messages,
         {
@@ -38,6 +39,11 @@ export const ask = async (currentState) => {
     };
     state.update(() => updatedState);
     await generateAnswer(updatedState);
+
+    state.update((state) => {
+      state.typing = false;
+      return state;
+    });
   } catch (error) {
     console.error("An error occurred while asking the question", error);
     // TODO: Handle the error, such as displaying an error message to the user

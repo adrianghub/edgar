@@ -44,6 +44,7 @@ export const state = writable<IState>({
       content: defaultSystemPrompt,
     },
   ],
+  typing: false,
   shortcuts: [
     {
       id: 1,

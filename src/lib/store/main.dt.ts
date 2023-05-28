@@ -8,6 +8,7 @@ export interface IState {
     shortcuts: IShortcut[],
     query: string,
     answer: string,
+    typing: boolean
 }
 
 export interface IShortcut {
