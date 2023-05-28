@@ -180,6 +180,14 @@
         {/each}
       </div>
     </div>
+
+    <!-- Display registered shortcuts -->
+    <h2>Shortcuts</h2>
+    <ul class="text-left mt-3.5 overflow-y-auto bg-gray-900 p-2.5 text-white">
+      {#each currentState.shortcuts as shortcut (shortcut.id)}
+        <li class="mb-2 text-lg">{shortcut.name} - {shortcut.keystroke}</li>
+      {/each}
+    </ul>
   </div>
 </main>
 

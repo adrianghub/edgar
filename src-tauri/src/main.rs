@@ -7,11 +7,6 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
-#[tauri::command]
-fn get_environment_variable (name: &str) -> String {
-  std::env::var(name).unwrap_or_else(|_| "".to_string())
-}
-
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())

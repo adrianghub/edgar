@@ -3,9 +3,9 @@ import {
   register,
   unregister,
 } from "@tauri-apps/api/globalShortcut";
-import type { IShortcut } from "../store/main.dt";
 import { readText } from "@tauri-apps/api/clipboard";
 import { state } from "../store/main";
+import type { Shortcut } from "../store/main.dt";
 
 const createAction = async (currentState, shortcut) => {
   return async () => {
@@ -19,7 +19,7 @@ const createAction = async (currentState, shortcut) => {
   };
 };
 
-export const registerKeystroke = async (currentState, shortcut: IShortcut) => {
+export const registerKeystroke = async (currentState, shortcut: Shortcut) => {
   try {
     const action = await createAction(currentState, shortcut);
     const alreadyRegistered = await isRegistered(shortcut.keystroke);
@@ -32,7 +32,7 @@ export const registerKeystroke = async (currentState, shortcut: IShortcut) => {
   }
 };
 
-export const unregisterKeystroke = async (shortcut: IShortcut) => {
+export const unregisterKeystroke = async (shortcut: Shortcut) => {
   try {
     await unregister(shortcut.keystroke);
   } catch (error) {
