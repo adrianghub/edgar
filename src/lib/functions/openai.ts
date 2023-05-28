@@ -2,6 +2,7 @@ import type { ChatState } from "../store/main.dt";
 import { defaultSystemPrompt, state } from "../store/main";
 import { writeText } from "@tauri-apps/api/clipboard";
 import { models } from "../../constants/index";
+import { decryptKey } from "./secure-keys";
 
 const API_URL = "https://api.openai.com/v1/chat/completions";
 const max_tokens = 1500;
@@ -13,7 +14,7 @@ export async function openAICompletion(query: Partial<ChatState>) {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        Authorization: `Bearer ${query.apikey}`,
+        Authorization: `Bearer ${decryptKey(query.apikey)}`,
       },
       body: JSON.stringify({
         model: query.model ?? models[0],

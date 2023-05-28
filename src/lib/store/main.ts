@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import { Store } from "tauri-plugin-store-api";
 import type { ChatState } from "./main.dt";
 
-let store = new Store("edgar_ai.dat");
+let store = new Store("edgarai.dat");
 
 export const defaultSystemPrompt = "You're a helpful assistant named Edgar";
 

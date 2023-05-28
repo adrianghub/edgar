@@ -49,7 +49,6 @@
       messages: [...current.messages],
       shortcuts: [...current.shortcuts],
     };
-    apikey = current.apikey;
   });
 
   const updateQuery = (event) => {
