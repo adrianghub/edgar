@@ -1,12 +1,12 @@
 import { writable } from "svelte/store";
 import { Store } from "tauri-plugin-store-api";
-import type { IState } from "./main.dt";
+import type { ChatState } from "./main.dt";
 
 let store = new Store("edgar_ai.dat");
 
 export const defaultSystemPrompt = "You're a helpful assistant named Edgar";
 
-export const saveState = async (newState: Partial<IState>) => {
+export const saveState = async (newState: Partial<ChatState>) => {
   try {
     await store.set("state", newState);
   } catch (error) {
@@ -16,9 +16,9 @@ export const saveState = async (newState: Partial<IState>) => {
   return newState;
 };
 
-export const loadState = async (state): Promise<IState | null> => {
+export const loadState = async (state): Promise<ChatState | null> => {
   try {
-    const savedState: IState = await store.get("state");
+    const savedState: ChatState = await store.get("state");
     state.update((state) => {
       state.apikey = savedState.apikey;
       return state;
@@ -30,7 +30,7 @@ export const loadState = async (state): Promise<IState | null> => {
   }
 };
 
-export const state = writable<IState>({
+export const state = writable<ChatState>({
   apikey: "",
   model: "gpt-3.5-turbo",
   max_tokens: 1500,

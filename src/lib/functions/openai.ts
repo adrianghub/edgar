@@ -1,13 +1,13 @@
-import type { IState } from "../store/main.dt";
+import type { ChatState } from "../store/main.dt";
 import { defaultSystemPrompt, state } from "../store/main";
 import { writeText } from "@tauri-apps/api/clipboard";
 
+export const models = ["gpt-3.5-turbo", "gpt-4"] 
 const API_URL = "https://api.openai.com/v1/chat/completions";
 const max_tokens = 1500;
 const temperature = 0.8;
-const model = "gpt-3.5-turbo";
 
-export async function openAICompletion(query: Partial<IState>) {
+export async function openAICompletion(query: Partial<ChatState>) {
   try {
     const options = {
       method: "POST",
@@ -16,7 +16,7 @@ export async function openAICompletion(query: Partial<IState>) {
         Authorization: `Bearer ${query.apikey}`,
       },
       body: JSON.stringify({
-        model: query.model ?? model,
+        model: query.model ?? models[0],
         max_tokens: query.max_tokens ?? max_tokens,
         temperature: query.temperature ?? temperature,
         messages: query.messages ?? [],
@@ -57,7 +57,7 @@ function updateLatestMessage(state, content) {
 }
 
 export async function displayAnswer(
-  query: Partial<IState>,
+  query: Partial<ChatState>,
   response: Response
 ) {
   const reader = response.body.getReader();

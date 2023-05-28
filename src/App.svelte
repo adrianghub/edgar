@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-  import type { IState } from "./lib/store/main.dt";
+  import type { ChatState, Model } from "./lib/store/main.dt";
   import {
     defaultSystemPrompt,
     loadState,
@@ -14,9 +14,19 @@
   } from "./lib/functions/shortcuts";
   import { unregisterAll } from "@tauri-apps/api/globalShortcut";
   import { marked } from "marked";
+  import { models } from "./lib/functions/openai";
 
   let apikey = "";
-  let currentState: IState;
+  let currentState: ChatState;
+  let selectedModel = "gpt-3.5-turbo";
+
+  const handleModelChange = (event) => {
+    selectedModel = event.target.value;
+    state.update((state) => {
+      state.model = selectedModel as Model;
+      return state;
+    });
+  };
 
   const sendShortcut = async (event) => {
     if (event.key === "Enter" && event.metaKey) {
@@ -81,7 +91,7 @@
       <div class="text-zinc-200 flex text-lg font-bold justify-end">Edgar</div>
 
       <div class="flex flex-col gap-3.5">
-        <div class="flex justify-between">
+        <div class="flex gap-3">
           <input
             placeholder="OpenAI API Key"
             class="apikey bg-slate-900 text-zinc-200 p-3.5"
@@ -90,6 +100,16 @@
             bind:value={apikey}
             autocomplete="off"
           />
+
+          <select
+            class="model-select bg-slate-900 text-zinc-200 p-3.5"
+            bind:value={selectedModel}
+            on:change={handleModelChange}
+          >
+            {#each models as model}
+              <option value={model}>{model}</option>
+            {/each}
+          </select>
         </div>
 
         <textarea
