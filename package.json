@@ -13,6 +13,7 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "@tauri-apps/api": "^1.2.0",
+    "crypto-js": "^4.1.1",
     "marked": "4.3.0",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store"
   },

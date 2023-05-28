@@ -1,8 +1,8 @@
 import type { ChatState } from "../store/main.dt";
 import { defaultSystemPrompt, state } from "../store/main";
 import { writeText } from "@tauri-apps/api/clipboard";
+import { models } from "../../constants/index";
 
-export const models = ["gpt-3.5-turbo", "gpt-4"] 
 const API_URL = "https://api.openai.com/v1/chat/completions";
 const max_tokens = 1500;
 const temperature = 0.8;

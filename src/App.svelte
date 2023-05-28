@@ -14,7 +14,8 @@
   } from "./lib/functions/shortcuts";
   import { unregisterAll } from "@tauri-apps/api/globalShortcut";
   import { marked } from "marked";
-  import { models } from "./lib/functions/openai";
+  import { models } from "./constants";
+  import { decryptKey, encryptKey } from "./lib/functions/secure-keys";
 
   let apikey = "";
   let currentState: ChatState;
@@ -59,17 +60,21 @@
   };
 
   const updateApiKey = async (event) => {
+    const encryptedKey = encryptKey(event.target.value);
     state.update((state) => {
-      state.apikey = event.target.value;
+      state.apikey = encryptedKey;
       return state;
     });
-    await saveState({ apikey });
+    await saveState({ apikey: encryptedKey });
   };
 
   onMount(async () => {
     await loadState(state);
 
     await unregisterAll();
+
+    currentState.apikey = decryptKey(currentState.apikey);
+
     currentState.shortcuts.forEach((shortcut) => {
       registerKeystroke(currentState, shortcut);
     });
