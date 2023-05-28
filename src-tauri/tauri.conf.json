@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "AI Devs Assistant",
+    "productName": "Edgar",
     "version": "0.0.1"
   },
   "tauri": {
@@ -44,7 +44,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.aidevs.dev",
+      "identifier": "adrianzinko.com",
       "targets": "all"
     },
     "security": {
@@ -58,7 +58,7 @@
         "decorations": false,
         "fullscreen": false,
         "resizable": true,
-        "title": "AI Devs assistant",
+        "title": "Edgar",
         "width": 650,
         "height": 800
       }
