@@ -6,7 +6,7 @@ export interface ChatState {
   messages: Message[];
 }
 
-interface Message {
+export interface Message {
   content: string;
   role: "user" | "bot";
 }
